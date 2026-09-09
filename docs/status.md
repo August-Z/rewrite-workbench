@@ -13,7 +13,7 @@ M1 · Correctness foundation。**RWB-001 实现与本地验收已完成**：Rust
 - 验证：10 个 core fixture 与 4 个 CLI 集成测试通过；fmt、Clippy 通过；README 的有效输入/错误输入命令已运行；CLI 输入字节保持检查通过。
 - 绑定 evidence 覆盖 alias、参数/块级遮蔽、不同 import 字面来源和 Unicode/BOM/CRLF 坐标。Oxc 节点存储需显式开启，已由测试确认。
 - 实现、命令、环境与边界详见 [RWB-001 验证记录](evidence/rwb-001.md)，复现入口见 [README](../README.md#run-the-development-spike)。
-- 后续结项复核完成：最终源码的 14 个测试、fmt、Clippy 及交付文件检查通过，未发现 RWB-001 阻塞项；远端交付通过 [Issue #1](https://github.com/August-Z/rewrite-workbench/issues/1) 关联的 PR 跟踪。
+- 后续结项复核完成：最终源码的 14 个测试、fmt、Clippy 及交付文件检查通过，未发现 RWB-001 阻塞项；实现与交付记录见 [PR #13](https://github.com/August-Z/rewrite-workbench/pull/13)，关联 [Issue #1](https://github.com/August-Z/rewrite-workbench/issues/1)。
 
 ## 接入状态
 
@@ -27,7 +27,7 @@ M1 · Correctness foundation。**RWB-001 实现与本地验收已完成**：Rust
 
 **[RWB-002：TSX 直接导入与绑定分类](https://github.com/August-Z/rewrite-workbench/issues/2)。**
 
-RWB-001 依赖已本地满足。先读 [任务说明](backlog.md)、[架构](architecture.md)、[验证策略](validation.md) 及 [spike 记录](evidence/rwb-001.md)，扩展导入选择、候选原因和不支持情况分类；不要将现有绑定观察直接作为 `ready` 改写候选。RWB-003 的依赖也已满足，但本次未开始实施。
+RWB-001 依赖已满足。先读 [任务说明](backlog.md)、[架构](architecture.md)、[验证策略](validation.md) 及 [spike 记录](evidence/rwb-001.md)，扩展导入选择、候选原因和不支持情况分类；不要将现有绑定观察直接作为 `ready` 改写候选。RWB-003 的依赖也已满足，但本次未开始实施。
 
 ## 未验证事项
 
