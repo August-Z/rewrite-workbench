@@ -1,0 +1,221 @@
+{
+  "selector": {
+    "moduleSpecifier": "@example/ui",
+    "importedName": "Button"
+  },
+  "bindings": [
+    {
+      "name": "Before",
+      "span": {
+        "startByte": 426,
+        "endByte": 432
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_merged_binding",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "merged",
+        "declarationSpans": [
+          {
+            "startByte": 6,
+            "endByte": 12
+          },
+          {
+            "startByte": 49,
+            "endByte": 55
+          }
+        ]
+      }
+    },
+    {
+      "name": "After",
+      "span": {
+        "startByte": 436,
+        "endByte": 441
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_merged_binding",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "merged",
+        "declarationSpans": [
+          {
+            "startByte": 67,
+            "endByte": 72
+          },
+          {
+            "startByte": 200,
+            "endByte": 205
+          }
+        ]
+      }
+    },
+    {
+      "name": "Augmented",
+      "span": {
+        "startByte": 445,
+        "endByte": 454
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_merged_binding",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "merged",
+        "declarationSpans": [
+          {
+            "startByte": 84,
+            "endByte": 93
+          },
+          {
+            "startByte": 225,
+            "endByte": 234
+          }
+        ]
+      }
+    },
+    {
+      "name": "Overload",
+      "span": {
+        "startByte": 458,
+        "endByte": 466
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_merged_binding",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "merged",
+        "declarationSpans": [
+          {
+            "startByte": 105,
+            "endByte": 113
+          },
+          {
+            "startByte": 271,
+            "endByte": 279
+          }
+        ]
+      }
+    },
+    {
+      "name": "Shape",
+      "span": {
+        "startByte": 470,
+        "endByte": 475
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_merged_binding",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "merged",
+        "declarationSpans": [
+          {
+            "startByte": 125,
+            "endByte": 130
+          },
+          {
+            "startByte": 302,
+            "endByte": 307
+          }
+        ]
+      }
+    },
+    {
+      "name": "EnumLike",
+      "span": {
+        "startByte": 479,
+        "endByte": 487
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_merged_binding",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "merged",
+        "declarationSpans": [
+          {
+            "startByte": 142,
+            "endByte": 150
+          },
+          {
+            "startByte": 316,
+            "endByte": 324
+          }
+        ]
+      }
+    },
+    {
+      "name": "ClassLike",
+      "span": {
+        "startByte": 491,
+        "endByte": 500
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_merged_binding",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "merged",
+        "declarationSpans": [
+          {
+            "startByte": 162,
+            "endByte": 171
+          },
+          {
+            "startByte": 337,
+            "endByte": 346
+          }
+        ]
+      }
+    },
+    {
+      "name": "Typed",
+      "span": {
+        "startByte": 504,
+        "endByte": 509
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_merged_binding",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "merged",
+        "declarationSpans": [
+          {
+            "startByte": 374,
+            "endByte": 379
+          },
+          {
+            "startByte": 408,
+            "endByte": 413
+          }
+        ]
+      }
+    },
+    {
+      "name": "Button",
+      "span": {
+        "startByte": 513,
+        "endByte": 519
+      },
+      "status": "skipped",
+      "reasonCode": "operation_not_evaluated",
+      "bindingConfirmed": true,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": "Button",
+          "localName": "Button",
+          "form": "named",
+          "typeOnly": false,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 31,
+            "endByte": 37
+          },
+          "importSpan": {
+            "startByte": 22,
+            "endByte": 193
+          }
+        }
+      }
+    }
+  ]
+}

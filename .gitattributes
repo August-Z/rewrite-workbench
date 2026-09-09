@@ -1,3 +1,5 @@
 # Fixture offsets refer to exact source bytes, including CRLF and BOM.
 fixtures/spike/**/input.tsx -text
 fixtures/spike/unicode-crlf-bom/input.tsx whitespace=trailing-space,space-before-tab,cr-at-eol
+fixtures/bindings/**/input.tsx -text
+fixtures/bindings/unicode-crlf-bom/input.tsx whitespace=trailing-space,space-before-tab,cr-at-eol

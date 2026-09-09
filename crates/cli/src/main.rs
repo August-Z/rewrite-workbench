@@ -7,9 +7,9 @@ use std::{
     process::ExitCode,
 };
 
-use rewrite_core::{Status, inspect_tsx};
+use rewrite_core::{ImportSelector, Status, classify_tsx, inspect_tsx};
 
-const USAGE: &str = "Usage: rewrite-workbench inspect <file.tsx>\n\nRead-only TSX parsing and binding spike. Prints JSON; does not generate edits.\nExit codes: 0 = inspection completed, 1 = invalid TSX, 2 = usage or I/O error.";
+const USAGE: &str = "Usage: rewrite-workbench inspect <file.tsx>\n       rewrite-workbench bindings <file.tsx> <moduleSpecifier> <importedName>\n\nRead-only TSX inspection or direct named import classification. Prints JSON; does not generate edits.\nmoduleSpecifier matches the parsed import literal, not a resolved package or file.\nExit codes: 0 = analysis completed, 1 = invalid TSX, 2 = usage or I/O error.";
 
 fn run() -> Result<ExitCode, String> {
     let args: Vec<_> = env::args_os().skip(1).collect();
@@ -17,23 +17,49 @@ fn run() -> Result<ExitCode, String> {
         println!("{USAGE}");
         return Ok(ExitCode::SUCCESS);
     }
-    if args.len() != 2 || args[0] != "inspect" {
+    let classify = args.len() == 4 && args[0] == "bindings";
+    if !classify && (args.len() != 2 || args[0] != "inspect") {
         return Err(USAGE.to_owned());
     }
+    let selector = if classify {
+        Some(ImportSelector {
+            module_specifier: args[2]
+                .to_str()
+                .ok_or("moduleSpecifier must be UTF-8")?
+                .to_owned(),
+            imported_name: args[3]
+                .to_str()
+                .ok_or("importedName must be UTF-8")?
+                .to_owned(),
+        })
+    } else {
+        None
+    };
     let path = Path::new(&args[1]);
     if path.extension() != Some(OsStr::new("tsx")) {
         return Err(
-            "inspect requires a .tsx file; other syntax modes are not supported".to_owned(),
+            "analysis requires a .tsx file; other syntax modes are not supported".to_owned(),
         );
     }
     let source = fs::read_to_string(path)
         .map_err(|error| format!("Cannot read UTF-8 input {}: {error}", path.display()))?;
-    let report = inspect_tsx(&source);
     let mut stdout = io::stdout().lock();
-    serde_json::to_writer_pretty(&mut stdout, &report)
-        .map_err(|error| format!("Cannot write report: {error}"))?;
+    let (status, output) = if let Some(selector) = selector {
+        let report = classify_tsx(&source, &selector);
+        (
+            report.status,
+            serde_json::to_writer_pretty(&mut stdout, &report),
+        )
+    } else {
+        let report = inspect_tsx(&source);
+        (
+            report.status,
+            serde_json::to_writer_pretty(&mut stdout, &report),
+        )
+    };
+    output.map_err(|error| format!("Cannot write report: {error}"))?;
     writeln!(stdout).map_err(|error| format!("Cannot write report: {error}"))?;
-    Ok(if report.status == Status::Invalid {
+    Ok(if status == Status::Invalid {
         ExitCode::from(1)
     } else {
         ExitCode::SUCCESS

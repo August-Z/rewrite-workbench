@@ -1,0 +1,145 @@
+{
+  "selector": {
+    "moduleSpecifier": "@example/ui",
+    "importedName": "Button"
+  },
+  "bindings": [
+    {
+      "name": "Wrapped",
+      "span": {
+        "startByte": 252,
+        "endByte": 259
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_component_indirection",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "local",
+        "declarationSpan": {
+          "startByte": 44,
+          "endByte": 51
+        },
+        "declarationKind": "variable"
+      }
+    },
+    {
+      "name": "Assigned",
+      "span": {
+        "startByte": 263,
+        "endByte": 271
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_component_indirection",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "local",
+        "declarationSpan": {
+          "startByte": 74,
+          "endByte": 82
+        },
+        "declarationKind": "variable"
+      }
+    },
+    {
+      "name": "Destructured",
+      "span": {
+        "startByte": 275,
+        "endByte": 287
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_component_indirection",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "local",
+        "declarationSpan": {
+          "startByte": 109,
+          "endByte": 121
+        },
+        "declarationKind": "variable"
+      }
+    },
+    {
+      "name": "Required",
+      "span": {
+        "startByte": 291,
+        "endByte": 299
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_component_indirection",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "local",
+        "declarationSpan": {
+          "startByte": 151,
+          "endByte": 159
+        },
+        "declarationKind": "variable"
+      }
+    },
+    {
+      "name": "Later",
+      "span": {
+        "startByte": 303,
+        "endByte": 308
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_component_indirection",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "local",
+        "declarationSpan": {
+          "startByte": 192,
+          "endByte": 197
+        },
+        "declarationKind": "variable"
+      }
+    },
+    {
+      "name": "Local",
+      "span": {
+        "startByte": 312,
+        "endByte": 317
+      },
+      "status": "not_matched",
+      "reasonCode": "different_binding",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "local",
+        "declarationSpan": {
+          "startByte": 224,
+          "endByte": 229
+        },
+        "declarationKind": "function"
+      }
+    },
+    {
+      "name": "Button",
+      "span": {
+        "startByte": 321,
+        "endByte": 327
+      },
+      "status": "skipped",
+      "reasonCode": "operation_not_evaluated",
+      "bindingConfirmed": true,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": "Button",
+          "localName": "Button",
+          "form": "named",
+          "typeOnly": false,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 9,
+            "endByte": 15
+          },
+          "importSpan": {
+            "startByte": 0,
+            "endByte": 37
+          }
+        }
+      }
+    }
+  ]
+}

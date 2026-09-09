@@ -1,4 +1,7 @@
-//! Read-only TSX parsing and binding feasibility spike for RWB-001.
+//! Read-only TSX parsing and file-local import binding analysis.
+
+mod bindings;
+pub use bindings::*;
 
 use std::collections::HashMap;
 
@@ -10,7 +13,7 @@ use oxc::{
     },
     diagnostics::OxcDiagnostic,
     parser::{ParseOptions, Parser},
-    semantic::SemanticBuilder,
+    semantic::{Semantic, SemanticBuilder},
     span::{GetSpan, SourceType, Span},
 };
 use serde::Serialize;
@@ -35,7 +38,10 @@ impl From<Span> for ByteSpan {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "snake_case")]
 pub enum Status {
+    Ready,
+    NotMatched,
     Skipped,
+    Conflicted,
     Invalid,
 }
 
@@ -93,35 +99,11 @@ pub struct AnalysisReport {
     pub bindings: Vec<BindingObservation>,
 }
 
-fn invalid(reason_code: ReasonCode, diagnostics: &[OxcDiagnostic]) -> AnalysisReport {
-    AnalysisReport {
-        schema_version: 1,
-        status: Status::Invalid,
-        reason_code,
-        diagnostics: diagnostics
-            .iter()
-            .map(|diagnostic| Diagnostic {
-                message: diagnostic.to_string(),
-                spans: diagnostic
-                    .labels
-                    .iter()
-                    .map(|label| ByteSpan {
-                        start_byte: label.offset(),
-                        end_byte: label.offset() + label.len(),
-                    })
-                    .collect(),
-            })
-            .collect(),
-        bindings: Vec::new(),
-    }
-}
-
-/// Parse one immutable TSX module and inspect opening-tag bindings using Oxc Semantic.
-///
-/// Does not read files, resolve modules, select a recipe, create edits, or write output.
-/// A valid input is `skipped / binding_spike_only`: no operation has been checked.
-/// Any parser or semantic diagnostic invalidates the whole report's binding evidence.
-pub fn inspect_tsx(source: &str) -> AnalysisReport {
+/// Shared strict parser and Semantic setup; never expose a recovery tree to either API.
+fn with_semantic<T>(
+    source: &str,
+    analyze: impl FnOnce(&Semantic<'_>) -> T,
+) -> Result<T, (ReasonCode, Vec<Diagnostic>)> {
     let allocator = Allocator::default();
     let parsed = Parser::new(&allocator, source, SourceType::tsx())
         .with_options(ParseOptions {
@@ -130,7 +112,7 @@ pub fn inspect_tsx(source: &str) -> AnalysisReport {
         })
         .parse();
     if parsed.fatal_error || !parsed.diagnostics.is_empty() {
-        return invalid(ReasonCode::ParseError, &parsed.diagnostics);
+        return Err((ReasonCode::ParseError, diagnostics(&parsed.diagnostics)));
     }
 
     let built = SemanticBuilder::new()
@@ -139,9 +121,53 @@ pub fn inspect_tsx(source: &str) -> AnalysisReport {
         .with_check_syntax_error(true)
         .build(&parsed.program);
     if !built.diagnostics.is_empty() {
-        return invalid(ReasonCode::SemanticSyntaxError, &built.diagnostics);
+        return Err((
+            ReasonCode::SemanticSyntaxError,
+            diagnostics(&built.diagnostics),
+        ));
     }
-    let semantic = built.semantic;
+    Ok(analyze(&built.semantic))
+}
+
+fn diagnostics(errors: &[OxcDiagnostic]) -> Vec<Diagnostic> {
+    errors
+        .iter()
+        .map(|diagnostic| Diagnostic {
+            message: diagnostic.to_string(),
+            spans: diagnostic
+                .labels
+                .iter()
+                .map(|label| ByteSpan {
+                    start_byte: label.offset(),
+                    end_byte: label.offset() + label.len(),
+                })
+                .collect(),
+        })
+        .collect()
+}
+
+/// Legacy RWB-001 observations, not rewrite eligibility or selector results.
+/// Errors invalidate the entire file. This API performs no I/O or edits.
+pub fn inspect_tsx(source: &str) -> AnalysisReport {
+    match with_semantic(source, |semantic| inspect_bindings(source, semantic)) {
+        Ok(bindings) => AnalysisReport {
+            schema_version: 1,
+            status: Status::Skipped,
+            reason_code: ReasonCode::BindingSpikeOnly,
+            diagnostics: Vec::new(),
+            bindings,
+        },
+        Err((reason_code, diagnostics)) => AnalysisReport {
+            schema_version: 1,
+            status: Status::Invalid,
+            reason_code,
+            diagnostics,
+            bindings: Vec::new(),
+        },
+    }
+}
+
+fn inspect_bindings(source: &str, semantic: &Semantic<'_>) -> Vec<BindingObservation> {
     let scoping = semantic.scoping();
     let mut imports = HashMap::new();
     for node in semantic.nodes().iter() {
@@ -202,11 +228,5 @@ pub fn inspect_tsx(source: &str) -> AnalysisReport {
         });
     }
     bindings.sort_by_key(|binding| binding.span.start_byte);
-    AnalysisReport {
-        schema_version: 1,
-        status: Status::Skipped,
-        reason_code: ReasonCode::BindingSpikeOnly,
-        diagnostics: Vec::new(),
-        bindings,
-    }
+    bindings
 }

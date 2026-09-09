@@ -4,38 +4,34 @@
 
 ## 当前阶段
 
-M1 · Correctness foundation。**RWB-001 实现与本地验收已完成**：Rust core 与只读 CLI 可以解析 TSX、报告语法错误并观察同文件绑定。完整候选分类、两种改写操作、patch、GUI、WASM 和可安装版本仍未实现，M1 尚未完成。
+M1 · Correctness foundation。**RWB-001、RWB-002 实现与本地验收已完成**：Rust core 与只读 CLI 可解析 TSX、分类直接命名导入及同文件绑定。绑定确认仍为 `skipped / operation_not_evaluated`；两种改写操作、快照/patch、GUI、WASM 和可安装版本仍未实现，M1 尚未完成。
 
 ## 已完成
 
-- M0：产品/架构/验证计划、roadmap、12 个任务的范围与验收、agent 交接及贡献规范；竞品官方文档核查已记录，尚无实际任务计时或用户试用数据。
-- RWB-001：两个 Cargo crate，Rust 1.98.1 / Oxc 0.149.0 及 Cargo.lock 固定；10 份原创合成 fixtures 与 expected 分类。
-- 验证：10 个 core fixture 与 4 个 CLI 集成测试通过；fmt、Clippy 通过；README 的有效输入/错误输入命令已运行；CLI 输入字节保持检查通过。
-- 绑定 evidence 覆盖 alias、参数/块级遮蔽、不同 import 字面来源和 Unicode/BOM/CRLF 坐标。Oxc 节点存储需显式开启，已由测试确认。
-- 实现、命令、环境与边界详见 [RWB-001 验证记录](evidence/rwb-001.md)，复现入口见 [README](../README.md#run-the-development-spike)。
-- 后续结项复核完成：最终源码的 14 个测试、fmt、Clippy 及交付文件检查通过，未发现 RWB-001 阻塞项；实现与交付记录见 [PR #13](https://github.com/August-Z/rewrite-workbench/pull/13)，关联 [Issue #1](https://github.com/August-Z/rewrite-workbench/issues/1)。
+- M0：产品/架构/验证计划、roadmap、12 个任务的范围与验收、agent 交接及贡献规范；尚无实际任务计时或用户试用数据。
+- RWB-001：Cargo core/CLI、Rust 1.98.1 / Oxc 0.149.0 固定、10 份 spike fixtures；已通过 [PR #13](https://github.com/August-Z/rewrite-workbench/pull/13) 合入 main，记录见 [RWB-001 证据](evidence/rwb-001.md)。
+- RWB-002：新增 `classify_tsx` 与 `bindings` CLI，覆盖直接命名导入/as 别名、不同字面来源、局部遮蔽、DOM、type-only、未解析及不支持形式（含多声明 SymbolId）；明确原因与 UTF-8 byte evidence。旧 inspect 协议兼容，无 ready 改写结果。
+- 验证：29 个 workspace 测试通过（10 旧 core + 11 分类 + 8 CLI），fmt、Clippy 通过；9 份新增原创 fixtures 覆盖 64 条 JSX 使用预期，README bindings 命令已运行，CLI 输入字节保持检查通过。
+- 本次接口、原因优先级、环境和边界见 [RWB-002 验证记录](evidence/rwb-002.md) 与 [分类协议](architecture.md#rwb-002-已实现的只读分类协议)。
 
-## 接入状态
+## 接入与交付状态
 
-- GitHub 仓库：[August-Z/rewrite-workbench](https://github.com/August-Z/rewrite-workbench)，公开，MIT，默认分支 main。
-- Git：RWB-001 起始于 `main` / `8a2ff2b`，在 `codex/rwb-001-workspace` 分支实现；当前 checkout、提交与合入状态以实际 Git 和关联 PR 为准。
-- Codex 项目：已添加为 rewrite-workbench；官方项目列表已确认它是本地 Git 项目。
-- 执行跟踪：[5 个里程碑与 12 个任务](github-tracking.md)，M0 已关闭；RWB-001 验收完成，交付记录见 [Issue #1](https://github.com/August-Z/rewrite-workbench/issues/1)；其余任务待实施。
-- 新任务接续：本次开发会话已从本仓库 AGENTS.md、status 和 Issue #1 成功接续；后续按 [交接流程](agent-workflow.md) 读取当前工作区。
+- GitHub：[August-Z/rewrite-workbench](https://github.com/August-Z/rewrite-workbench)，任务见 [tracking](github-tracking.md)。
+- 本次起始本地/远端 main 和 PR #13 merge commit 均为 `9e5f1ac7a03a495b5447fbd66e442ff3adbaf70d`。实现分支为 `augustz/rwb-002-bindings`，实现与本地验收已完成；提交前工作区尚未暂存，后续交付状态以关联 PR 和 Issue #2 为准。
+- 开始时 Issue #2 为 OPEN。本地完成不代表远端已交付，最新 Git 与 GitHub 状态仍应现场核对。
+- 已有无关未跟踪 IDE 内容保持原样，未读取或纳入本次修改。后续任务按 [交接流程](agent-workflow.md) 读取实际 checkout。
 
 ## 下一任务
 
-**[RWB-002：TSX 直接导入与绑定分类](https://github.com/August-Z/rewrite-workbench/issues/2)。**
-
-RWB-001 依赖已满足。先读 [任务说明](backlog.md)、[架构](architecture.md)、[验证策略](validation.md) 及 [spike 记录](evidence/rwb-001.md)，扩展导入选择、候选原因和不支持情况分类；不要将现有绑定观察直接作为 `ready` 改写候选。RWB-003 的依赖也已满足，但本次未开始实施。
+**[RWB-003：不可变修改计划与 patch 输出](https://github.com/August-Z/rewrite-workbench/issues/3)。** RWB-001 依赖已满足。读取 [backlog](backlog.md)、[架构](architecture.md)、[验证策略](validation.md) 及 [本次证据](evidence/rwb-002.md)，建立快照/hash、UTF-8 edits、冲突与 patch 契约。本次没有开始 RWB-003；RWB-004 的两种操作要在 003 完成后组合实施，不能把绑定确认直接变成 ready。
 
 ## 未验证事项
 
-- RWB-002 的完整来源/不支持形式分类，以及 RWB-003 的快照、edit 与 patch 契约。
-- 两种操作在合成与真实 TSX 项目中的正确性。
-- 竞品任务耗时和真实用户操作优势。
-- 安装分发、支持平台和公开传播效果。
+- 快照/修改计划/patch，以及两种操作在合成与真实 TSX 工程中的正确性。
+- 最终模块/物理文件解析、跨文件符号来源、完整 TypeScript 类型检查和任意业务行为保持。
+- GUI、WASM、CI、安装分发及其他平台。
+- 竞品任务耗时、真实用户操作优势、性能与公开增长观察。
 
 ## 状态维护
 
-完成任务后以事实更新本文件。保留未完成项，不以计划或原型替代实现证据；详细日志与研究记录链接到对应文档或 issue。
+完成任务后以事实更新本文件。保留未完成项，不以计划或原型替代实现证据；详细证据链接到对应文档或 issue。
