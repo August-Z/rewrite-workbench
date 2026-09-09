@@ -17,7 +17,7 @@ M1 · Correctness foundation。**RWB-001、RWB-002 实现与本地验收已完�
 ## 接入与交付状态
 
 - GitHub：[August-Z/rewrite-workbench](https://github.com/August-Z/rewrite-workbench)，任务见 [tracking](github-tracking.md)。
-- 本次起始本地/远端 main 和 PR #13 merge commit 均为 `9e5f1ac7a03a495b5447fbd66e442ff3adbaf70d`。实现分支为 `augustz/rwb-002-bindings`，实现与本地验收已完成；提交前工作区尚未暂存，后续交付状态以关联 PR 和 Issue #2 为准。
+- 本次起始本地/远端 main 和 PR #13 merge commit 均为 `9e5f1ac7a03a495b5447fbd66e442ff3adbaf70d`。实现分支为 `augustz/rwb-002-bindings`，实现与本地验收已完成，交付记录见 [PR #14](https://github.com/August-Z/rewrite-workbench/pull/14)，关联 [Issue #2](https://github.com/August-Z/rewrite-workbench/issues/2)；提交与合入状态以该 PR 为准。
 - 开始时 Issue #2 为 OPEN。本地完成不代表远端已交付，最新 Git 与 GitHub 状态仍应现场核对。
 - 已有无关未跟踪 IDE 内容保持原样，未读取或纳入本次修改。后续任务按 [交接流程](agent-workflow.md) 读取实际 checkout。
 
