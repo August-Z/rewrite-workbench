@@ -1,0 +1,84 @@
+{
+  "selector": {
+    "moduleSpecifier": "@example/ui",
+    "importedName": "Button"
+  },
+  "bindings": [
+    {
+      "name": "按钮",
+      "span": {
+        "startByte": 73,
+        "endByte": 79
+      },
+      "status": "skipped",
+      "reasonCode": "operation_not_evaluated",
+      "bindingConfirmed": true,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": "Button",
+          "localName": "按钮",
+          "form": "named",
+          "typeOnly": false,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 42,
+            "endByte": 48
+          },
+          "importSpan": {
+            "startByte": 23,
+            "endByte": 70
+          }
+        }
+      }
+    },
+    {
+      "name": "按钮",
+      "span": {
+        "startByte": 125,
+        "endByte": 131
+      },
+      "status": "not_matched",
+      "reasonCode": "different_binding",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "local",
+        "declarationSpan": {
+          "startByte": 96,
+          "endByte": 102
+        },
+        "declarationKind": "parameter"
+      }
+    },
+    {
+      "name": "按钮",
+      "span": {
+        "startByte": 140,
+        "endByte": 146
+      },
+      "status": "skipped",
+      "reasonCode": "operation_not_evaluated",
+      "bindingConfirmed": true,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": "Button",
+          "localName": "按钮",
+          "form": "named",
+          "typeOnly": false,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 42,
+            "endByte": 48
+          },
+          "importSpan": {
+            "startByte": 23,
+            "endByte": 70
+          }
+        }
+      }
+    }
+  ]
+}

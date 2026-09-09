@@ -1,0 +1,125 @@
+{
+  "selector": {
+    "moduleSpecifier": "@example/ui",
+    "importedName": "Button"
+  },
+  "bindings": [
+    {
+      "name": "Button",
+      "span": {
+        "startByte": 153,
+        "endByte": 159
+      },
+      "status": "skipped",
+      "reasonCode": "unresolved_binding",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "unresolved"
+      }
+    },
+    {
+      "name": "Missing",
+      "span": {
+        "startByte": 163,
+        "endByte": 170
+      },
+      "status": "skipped",
+      "reasonCode": "unresolved_binding",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "unresolved"
+      }
+    },
+    {
+      "name": "UI.Button",
+      "span": {
+        "startByte": 174,
+        "endByte": 183
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_jsx_name",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "unresolved"
+      }
+    },
+    {
+      "name": "button",
+      "span": {
+        "startByte": 187,
+        "endByte": 193
+      },
+      "status": "not_matched",
+      "reasonCode": "intrinsic_jsx_tag",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "intrinsic"
+      }
+    },
+    {
+      "name": "div",
+      "span": {
+        "startByte": 197,
+        "endByte": 200
+      },
+      "status": "not_matched",
+      "reasonCode": "intrinsic_jsx_tag",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "intrinsic"
+      }
+    },
+    {
+      "name": "custom-element",
+      "span": {
+        "startByte": 204,
+        "endByte": 218
+      },
+      "status": "not_matched",
+      "reasonCode": "intrinsic_jsx_tag",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "intrinsic"
+      }
+    },
+    {
+      "name": "svg:path",
+      "span": {
+        "startByte": 222,
+        "endByte": 230
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_jsx_name",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "unsupported_jsx_name"
+      }
+    },
+    {
+      "name": "this",
+      "span": {
+        "startByte": 234,
+        "endByte": 238
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_jsx_name",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "unsupported_jsx_name"
+      }
+    },
+    {
+      "name": "this.Button",
+      "span": {
+        "startByte": 242,
+        "endByte": 253
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_jsx_name",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "unsupported_jsx_name"
+      }
+    }
+  ]
+}

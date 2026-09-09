@@ -1,0 +1,247 @@
+{
+  "selector": {
+    "moduleSpecifier": "@example/ui",
+    "importedName": "Button"
+  },
+  "bindings": [
+    {
+      "name": "T",
+      "span": {
+        "startByte": 206,
+        "endByte": 207
+      },
+      "status": "skipped",
+      "reasonCode": "type_only_import",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": "Button",
+          "localName": "T",
+          "form": "named",
+          "typeOnly": true,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 24,
+            "endByte": 25
+          },
+          "importSpan": {
+            "startByte": 0,
+            "endByte": 47
+          }
+        }
+      }
+    },
+    {
+      "name": "Inline",
+      "span": {
+        "startByte": 213,
+        "endByte": 219
+      },
+      "status": "skipped",
+      "reasonCode": "type_only_import",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": "Button",
+          "localName": "Inline",
+          "form": "named",
+          "typeOnly": true,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 72,
+            "endByte": 78
+          },
+          "importSpan": {
+            "startByte": 48,
+            "endByte": 117
+          }
+        }
+      }
+    },
+    {
+      "name": "DefaultType",
+      "span": {
+        "startByte": 225,
+        "endByte": 236
+      },
+      "status": "skipped",
+      "reasonCode": "type_only_import",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": "default",
+          "localName": "DefaultType",
+          "form": "default",
+          "typeOnly": true,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 130,
+            "endByte": 141
+          },
+          "importSpan": {
+            "startByte": 118,
+            "endByte": 161
+          }
+        }
+      }
+    },
+    {
+      "name": "Types",
+      "span": {
+        "startByte": 242,
+        "endByte": 247
+      },
+      "status": "skipped",
+      "reasonCode": "type_only_import",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": null,
+          "localName": "Types",
+          "form": "namespace",
+          "typeOnly": true,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 179,
+            "endByte": 184
+          },
+          "importSpan": {
+            "startByte": 162,
+            "endByte": 204
+          }
+        }
+      }
+    },
+    {
+      "name": "Types.Button",
+      "span": {
+        "startByte": 253,
+        "endByte": 265
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_jsx_name",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": null,
+          "localName": "Types",
+          "form": "namespace",
+          "typeOnly": true,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 179,
+            "endByte": 184
+          },
+          "importSpan": {
+            "startByte": 162,
+            "endByte": 204
+          }
+        }
+      }
+    },
+    {
+      "name": "Value",
+      "span": {
+        "startByte": 271,
+        "endByte": 276
+      },
+      "status": "skipped",
+      "reasonCode": "operation_not_evaluated",
+      "bindingConfirmed": true,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": "Button",
+          "localName": "Value",
+          "form": "named",
+          "typeOnly": false,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 90,
+            "endByte": 95
+          },
+          "importSpan": {
+            "startByte": 48,
+            "endByte": 117
+          }
+        }
+      }
+    },
+    {
+      "name": "T",
+      "span": {
+        "startByte": 324,
+        "endByte": 325
+      },
+      "status": "not_matched",
+      "reasonCode": "different_binding",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "local",
+        "declarationSpan": {
+          "startByte": 300,
+          "endByte": 301
+        },
+        "declarationKind": "parameter"
+      }
+    },
+    {
+      "name": "Inline",
+      "span": {
+        "startByte": 357,
+        "endByte": 363
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_component_indirection",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "local",
+        "declarationSpan": {
+          "startByte": 340,
+          "endByte": 346
+        },
+        "declarationKind": "variable"
+      }
+    },
+    {
+      "name": "T",
+      "span": {
+        "startByte": 371,
+        "endByte": 372
+      },
+      "status": "skipped",
+      "reasonCode": "type_only_import",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": "Button",
+          "localName": "T",
+          "form": "named",
+          "typeOnly": true,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 24,
+            "endByte": 25
+          },
+          "importSpan": {
+            "startByte": 0,
+            "endByte": 47
+          }
+        }
+      }
+    }
+  ]
+}

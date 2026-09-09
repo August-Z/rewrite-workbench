@@ -1,0 +1,210 @@
+{
+  "selector": {
+    "moduleSpecifier": "@example/ui",
+    "importedName": "Button"
+  },
+  "bindings": [
+    {
+      "name": "B",
+      "span": {
+        "startByte": 44,
+        "endByte": 45
+      },
+      "status": "skipped",
+      "reasonCode": "operation_not_evaluated",
+      "bindingConfirmed": true,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": "Button",
+          "localName": "B",
+          "form": "named",
+          "typeOnly": false,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 19,
+            "endByte": 20
+          },
+          "importSpan": {
+            "startByte": 0,
+            "endByte": 42
+          }
+        }
+      }
+    },
+    {
+      "name": "B",
+      "span": {
+        "startByte": 93,
+        "endByte": 94
+      },
+      "status": "not_matched",
+      "reasonCode": "different_binding",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "local",
+        "declarationSpan": {
+          "startByte": 71,
+          "endByte": 72
+        },
+        "declarationKind": "parameter"
+      }
+    },
+    {
+      "name": "B",
+      "span": {
+        "startByte": 106,
+        "endByte": 107
+      },
+      "status": "not_matched",
+      "reasonCode": "different_binding",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "local",
+        "declarationSpan": {
+          "startByte": 120,
+          "endByte": 121
+        },
+        "declarationKind": "variable"
+      }
+    },
+    {
+      "name": "B",
+      "span": {
+        "startByte": 155,
+        "endByte": 156
+      },
+      "status": "not_matched",
+      "reasonCode": "different_binding",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "local",
+        "declarationSpan": {
+          "startByte": 120,
+          "endByte": 121
+        },
+        "declarationKind": "variable"
+      }
+    },
+    {
+      "name": "B",
+      "span": {
+        "startByte": 185,
+        "endByte": 186
+      },
+      "status": "not_matched",
+      "reasonCode": "different_binding",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "local",
+        "declarationSpan": {
+          "startByte": 195,
+          "endByte": 196
+        },
+        "declarationKind": "variable"
+      }
+    },
+    {
+      "name": "B",
+      "span": {
+        "startByte": 228,
+        "endByte": 229
+      },
+      "status": "not_matched",
+      "reasonCode": "different_binding",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "local",
+        "declarationSpan": {
+          "startByte": 222,
+          "endByte": 223
+        },
+        "declarationKind": "parameter"
+      }
+    },
+    {
+      "name": "B",
+      "span": {
+        "startByte": 273,
+        "endByte": 274
+      },
+      "status": "not_matched",
+      "reasonCode": "different_binding",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "local",
+        "declarationSpan": {
+          "startByte": 259,
+          "endByte": 260
+        },
+        "declarationKind": "function"
+      }
+    },
+    {
+      "name": "B",
+      "span": {
+        "startByte": 313,
+        "endByte": 314
+      },
+      "status": "not_matched",
+      "reasonCode": "different_binding",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "local",
+        "declarationSpan": {
+          "startByte": 293,
+          "endByte": 294
+        },
+        "declarationKind": "variable"
+      }
+    },
+    {
+      "name": "B",
+      "span": {
+        "startByte": 335,
+        "endByte": 336
+      },
+      "status": "not_matched",
+      "reasonCode": "different_binding",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "local",
+        "declarationSpan": {
+          "startByte": 329,
+          "endByte": 330
+        },
+        "declarationKind": "class"
+      }
+    },
+    {
+      "name": "B",
+      "span": {
+        "startByte": 344,
+        "endByte": 345
+      },
+      "status": "skipped",
+      "reasonCode": "operation_not_evaluated",
+      "bindingConfirmed": true,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": "Button",
+          "localName": "B",
+          "form": "named",
+          "typeOnly": false,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 19,
+            "endByte": 20
+          },
+          "importSpan": {
+            "startByte": 0,
+            "endByte": 42
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,240 @@
+{
+  "selector": {
+    "moduleSpecifier": "@example/ui",
+    "importedName": "Button"
+  },
+  "bindings": [
+    {
+      "name": "Button",
+      "span": {
+        "startByte": 361,
+        "endByte": 367
+      },
+      "status": "skipped",
+      "reasonCode": "operation_not_evaluated",
+      "bindingConfirmed": true,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": "Button",
+          "localName": "Button",
+          "form": "named",
+          "typeOnly": false,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 9,
+            "endByte": 15
+          },
+          "importSpan": {
+            "startByte": 0,
+            "endByte": 65
+          }
+        }
+      }
+    },
+    {
+      "name": "B",
+      "span": {
+        "startByte": 391,
+        "endByte": 392
+      },
+      "status": "skipped",
+      "reasonCode": "operation_not_evaluated",
+      "bindingConfirmed": true,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": "Button",
+          "localName": "B",
+          "form": "named",
+          "typeOnly": false,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 27,
+            "endByte": 28
+          },
+          "importSpan": {
+            "startByte": 0,
+            "endByte": 65
+          }
+        }
+      }
+    },
+    {
+      "name": "Foreign",
+      "span": {
+        "startByte": 396,
+        "endByte": 403
+      },
+      "status": "not_matched",
+      "reasonCode": "module_not_selected",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/other",
+          "importedName": "Button",
+          "localName": "Foreign",
+          "form": "named",
+          "typeOnly": false,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 85,
+            "endByte": 92
+          },
+          "importSpan": {
+            "startByte": 66,
+            "endByte": 117
+          }
+        }
+      }
+    },
+    {
+      "name": "Other",
+      "span": {
+        "startByte": 407,
+        "endByte": 412
+      },
+      "status": "not_matched",
+      "reasonCode": "imported_name_not_selected",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": "Link",
+          "localName": "Other",
+          "form": "named",
+          "typeOnly": false,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 38,
+            "endByte": 43
+          },
+          "importSpan": {
+            "startByte": 0,
+            "endByte": 65
+          }
+        }
+      }
+    },
+    {
+      "name": "Barrel",
+      "span": {
+        "startByte": 416,
+        "endByte": 422
+      },
+      "status": "not_matched",
+      "reasonCode": "module_not_selected",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "./barrel",
+          "importedName": "Button",
+          "localName": "Barrel",
+          "form": "named",
+          "typeOnly": false,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 137,
+            "endByte": 143
+          },
+          "importSpan": {
+            "startByte": 118,
+            "endByte": 162
+          }
+        }
+      }
+    },
+    {
+      "name": "Escaped",
+      "span": {
+        "startByte": 426,
+        "endByte": 433
+      },
+      "status": "skipped",
+      "reasonCode": "operation_not_evaluated",
+      "bindingConfirmed": true,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": "Button",
+          "localName": "Escaped",
+          "form": "named",
+          "typeOnly": false,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 182,
+            "endByte": 189
+          },
+          "importSpan": {
+            "startByte": 163,
+            "endByte": 216
+          }
+        }
+      }
+    },
+    {
+      "name": "Quoted",
+      "span": {
+        "startByte": 437,
+        "endByte": 443
+      },
+      "status": "skipped",
+      "reasonCode": "operation_not_evaluated",
+      "bindingConfirmed": true,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": "Button",
+          "localName": "Quoted",
+          "form": "named",
+          "typeOnly": false,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 238,
+            "endByte": 244
+          },
+          "importSpan": {
+            "startByte": 217,
+            "endByte": 266
+          }
+        }
+      }
+    },
+    {
+      "name": "Prefix",
+      "span": {
+        "startByte": 447,
+        "endByte": 453
+      },
+      "status": "not_matched",
+      "reasonCode": "module_not_selected",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui/subpath",
+          "importedName": "Button",
+          "localName": "Prefix",
+          "form": "named",
+          "typeOnly": false,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 286,
+            "endByte": 292
+          },
+          "importSpan": {
+            "startByte": 267,
+            "endByte": 322
+          }
+        }
+      }
+    }
+  ]
+}

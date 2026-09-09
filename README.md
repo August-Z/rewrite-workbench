@@ -4,7 +4,7 @@
 
 [中文项目计划](docs/project-plan.md) · [Roadmap](ROADMAP.md) · [Architecture](docs/architecture.md) · [Current status](docs/status.md) · [Agent entry point](AGENTS.md)
 
-> **Status: M1 correctness foundation, RWB-001 implemented and locally validated.** A Rust core and development CLI can parse TSX and inspect file-local bindings. Rewrite operations, patches, UI, and installable releases remain planned. See the [validation record](docs/evidence/rwb-001.md) for the tested scope.
+> **Status: M1 correctness foundation, RWB-001 and RWB-002 implemented and locally validated.** A Rust core and development CLI can parse TSX and classify direct named import bindings. Rewrite operations, patches, UI, and installable releases remain planned. See the [binding classification record](docs/evidence/rwb-002.md) for the tested scope.
 
 Rewrite Workbench is a planned local tool for frontend developers who need to update repeated code without learning an AST query language. Select an example, specify the intended change and scope, inspect matches and exclusions, and export a reviewable patch.
 
@@ -68,6 +68,20 @@ cargo run --locked -p rewrite-cli -- inspect fixtures/spike/parse-error/input.ts
 ```
 
 This prints `invalid / parse_error` with diagnostics and exits **1**. Completed inspections exit **0**; argument, file-read, encoding, or output errors exit **2**. No target files are written. See [fixture conventions](fixtures/README.md) and [execution evidence](docs/evidence/rwb-001.md). Packages have not been published; these are source-development commands.
+
+## Classify direct import bindings
+
+```sh
+cargo run --locked -p rewrite-cli -- bindings fixtures/bindings/direct-sources/input.tsx '@example/ui' Button
+```
+
+`bindings <file.tsx> <moduleSpecifier> <importedName>` calls `classify_tsx` in the same Rust core. Both selector arguments are exact parsed strings: module sources are not normalized or resolved, and `importedName` refers to the export name, not the local alias. This is a binding selector, not the planned recipe format.
+
+Each opening tag includes `status`, stable `reasonCode`, a readable `message`, `bindingConfirmed`, and evidence with UTF-8 byte spans. In this fixture, `Button`, `B`, `Escaped`, and `Quoted` confirm the selected binding. `Foreign`, `Barrel`, and `Prefix` have other literal module sources; `Other` imports a different export name.
+
+Even confirmed bindings remain **`skipped / operation_not_evaluated`**. No attribute conditions have been evaluated, and no result is `ready` for rewriting. A valid file reports `skipped / binding_classification_only`; other per-tag results explain exclusions or unsupported forms. Default/namespace imports, type-only imports, merged declarations, wrappers, and unresolved sources never confirm a selected runtime component. Re-exports are not traced. [Architecture](docs/architecture.md#rwb-002-已实现的只读分类协议) documents reason precedence and evidence boundaries.
+
+Exit codes and read-only behavior are the same as `inspect`. The legacy `inspect` report is unchanged and remains a feasibility observation. Neither command creates snapshots, edits, patches, or files. [Fixtures](fixtures/README.md#rwb-002-binding-classification) and [validation evidence](docs/evidence/rwb-002.md) provide the current handoff; RWB-003 is next.
 
 ## License
 

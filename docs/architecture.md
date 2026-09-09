@@ -1,8 +1,8 @@
 # rewrite-workbench 架构计划
 
-本文描述目标架构与协议；除下述 RWB-001 实现边界外，模块、recipe JSON 示例和阶段能力仍为计划。实际验证见 [RWB-001 记录](evidence/rwb-001.md)。
+本文描述目标架构与协议；除下述 RWB-001/002 实现边界外，模块、recipe JSON 示例和阶段能力仍为计划。实际验证见 [RWB-001 记录](evidence/rwb-001.md) 与 [RWB-002 记录](evidence/rwb-002.md)。
 
-RWB-001 已建立 `rewrite-core` 与 `rewrite-cli` 两个 crate，固定 Rust 1.98.1 和 Oxc 0.149.0。core 的 `inspect_tsx(&str)` 使用显式 TSX module 语法、开启正则解析和 Semantic syntax checks，仅返回导入/引用绑定观察及 UTF-8 byte spans；CLI 负责单文件读取和 JSON 输出。报告使用独立的 `schemaVersion: 1`，不是下文 Recipe v1 或 EditPlan 协议。正常输入为 `skipped / binding_spike_only`，错误输入为 `invalid / parse_error` 或 `invalid / semantic_syntax_error`；绑定成立不代表操作前置条件已经成立。完整候选分类、文件 hash、版本化请求、edit 与 patch 尚未实现，当前观察不能保存为可应用计划。
+RWB-001 已建立 `rewrite-core` 与 `rewrite-cli` 两个 crate，固定 Rust 1.98.1 和 Oxc 0.149.0。core 的 `inspect_tsx(&str)` 使用显式 TSX module 语法、开启正则解析和 Semantic syntax checks，仅返回导入/引用绑定观察及 UTF-8 byte spans；CLI 负责单文件读取和 JSON 输出。报告使用独立的 `schemaVersion: 1`，不是下文 Recipe v1 或 EditPlan 协议。正常输入为 `skipped / binding_spike_only`，错误输入为 `invalid / parse_error` 或 `invalid / semantic_syntax_error`；绑定成立不代表操作前置条件已经成立。RWB-002 已另建下述绑定分类接口；操作候选、文件 hash、版本化请求、edit 与 patch 尚未实现，当前观察不能保存为可应用计划。
 
 首版目标是：以 TSX 文件为用户入口和验收范围，依据直接导入的组件身份，预览两种确定规则的 JSX 改写，并导出可以审查的 patch。共享解析基础可考虑 JS、JSX、TS，但不因能够解析就宣称相关用户流程已验证。Alpha 不直接写入源文件；v0.1 再增加带内容 hash 检查的直接应用。正确性验收见 [validation.md](./validation.md)。
 
@@ -167,6 +167,38 @@ function Example(B: LocalComponent) {
 | invalid | invalid_recipe、unreadable_file、invalid_utf8、parse_error、semantic_syntax_error、invalid_generated_syntax | 输入或候选结果不可进入应用流程 |
 
 任何包含 JSX spread 的目标元素在 Alpha 中整体跳过，以免把未知对象属性与显式属性的覆盖关系误判为安全迁移。已有目标属性时不自动合并或覆盖。语法错误文件整体不生成 edit，不能依靠错误恢复树继续写入。
+
+### RWB-002 已实现的只读分类协议
+
+[core 分类模块](../crates/core/src/bindings.rs) 的 `classify_tsx(source, &ImportSelector)` 接受 `moduleSpecifier` 和 `importedName`，CLI 入口为 `bindings <file.tsx> <moduleSpecifier> <importedName>`。这是独立的 `BindingReport / schemaVersion: 1`，不是 Recipe、Candidate 或 EditPlan。`inspect_tsx` 的旧 schema 和观察结果保持兼容。
+
+- 两个 API 共用严格 TSX parser/Semantic 配置；任一 parse 或 Semantic syntax diagnostic 使整份报告 `invalid`，不返回部分绑定。
+- import 索引以本次分析的 SymbolId 为键，JSX 引用通过 ReferenceId 解析到 SymbolId；只对 bare component identifier 确认选定的普通命名值导入。不会从 spike 的 `named_import` 观察提升候选状态。
+- 报告含原样 selector、文件状态/原因/说明、diagnostics 和按输入位置排序的 `bindings`。每条含标签 `name`、标签名 `span`、`status`、`reasonCode`、`message`、`bindingConfirmed`、`evidence`。只记录 opening tags；fragment、注释、字符串和 re-export 声明不产生 JSX 使用结果。
+- import evidence 含字面来源的解析字符串、被导入名称、本地名称、form、typeOnly、phase、本地声明与整个 import 的 byte spans。local evidence 含声明位置和 parameter/variable/function/class/import_equals/other 分类。member tag 可以保留根引用的声明证据，但绝不确认成员组件来源。同一 SymbolId 存在多个声明时使用 merged evidence，按源顺序列出各声明的 byte spans，不选择其中某个 import 作为确定来源。没有可跨分析复用的 Oxc ID。
+- `bindingConfirmed: true` **只确认所选同文件 import 的词法绑定**。仍为 `skipped / operation_not_evaluated`，不是 `ready`；属性、spread、重复属性等前置条件留给 RWB-004。当前不输出 `ready` 或 `conflicted`。
+
+| 当前 status | reasonCode | 当前含义 |
+| --- | --- | --- |
+| skipped（文件） | binding_classification_only | 分类完成，未评估操作；即使零 JSX 或全不匹配也使用此文件状态 |
+| skipped | operation_not_evaluated | 选定直接命名值导入绑定成立，但操作尚未评估；唯一允许 bindingConfirmed=true 的原因 |
+| not_matched | module_not_selected | import 解析后的字面模块字符串不同 |
+| not_matched | imported_name_not_selected | 同模块但导出名不同；本地别名不作为导出名比较 |
+| not_matched | different_binding | 绑定到局部参数、函数、类等声明，或遮蔽所选 import 本地名称的局部变量 |
+| not_matched | intrinsic_jsx_tag | 小写 DOM/custom-element 等 intrinsic 标签，忽略同名 import |
+| skipped | type_only_import | 声明级或 specifier 级 type-only 导入，不能确认运行时来源 |
+| skipped | unsupported_import_form | default（也含 `{ default as B }`）、namespace、source/defer phase、TS import-equals |
+| skipped | unsupported_merged_binding | 同一 SymbolId 有多个声明；不推断 import、类型和值声明合并后的唯一来源 |
+| skipped | unsupported_component_indirection | 其他局部变量；不追踪赋值、解构、require 或 wrapper 调用的来源 |
+| skipped | unsupported_jsx_name | member、namespaced 或 this JSX 名称；证据至多属于根引用 |
+| skipped | unresolved_binding | 没有解析到同文件值绑定；不推断全局、外部或 re-export 来源 |
+| invalid（文件） | parse_error / semantic_syntax_error | 整份输入无效，bindings 为空 |
+
+原因优先级：文件错误先于所有分类；非 bare JSX 名称先于其根引用的 import 形式；bare 引用先拒绝多声明 SymbolId；唯一 import 先判断 type-only，再判断不支持形式，再比较模块和导出名。局部声明必须先有实际 SymbolId 证据；仅在选择排除文案时比较所选 import 的本地名，不用名称相同来确认 import 身份。type-only 值引用未解析时，作用域查找仅可用于解释拒绝，不能由此确认值导入。
+
+字面来源按 Oxc 解析后的字符串精确比较，例如 `"@example/\u0075i"` 与 `"@example/ui"` 相等，但 `"./x/../barrel"` 与 `"./barrel"` 不相等。从 `./barrel` 导入，只能在 selector 本身选择 `./barrel` 时确认该声明，不能宣称来自其可能转导出的包。re-export 不创建本地值绑定；仅有 `export { Button } from "@example/ui"` 后使用 `<Button />` 会得到 unresolved。已有直接 import 再被本地 export，不影响该 import 的绑定。
+
+当前 core 不读取文件、不解析 tsconfig/exports、不检查实际导出存在性；CLI 仅读取一个 `.tsx` 并输出 JSON。尚无快照、版本化请求、属性检查、修改计划或 patch。后续操作层必须完成自身前置条件检查，不能把 `bindingConfirmed` 自动变成可应用结果。
 
 ## 7. 最小文本修改与坐标
 

@@ -1,0 +1,258 @@
+{
+  "selector": {
+    "moduleSpecifier": "@example/ui",
+    "importedName": "Button"
+  },
+  "bindings": [
+    {
+      "name": "Default",
+      "span": {
+        "startByte": 264,
+        "endByte": 271
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_import_form",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": "default",
+          "localName": "Default",
+          "form": "default",
+          "typeOnly": false,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 7,
+            "endByte": 14
+          },
+          "importSpan": {
+            "startByte": 0,
+            "endByte": 34
+          }
+        }
+      }
+    },
+    {
+      "name": "NamedDefault",
+      "span": {
+        "startByte": 275,
+        "endByte": 287
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_import_form",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": "default",
+          "localName": "NamedDefault",
+          "form": "default",
+          "typeOnly": false,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 55,
+            "endByte": 67
+          },
+          "importSpan": {
+            "startByte": 35,
+            "endByte": 97
+          }
+        }
+      }
+    },
+    {
+      "name": "UI",
+      "span": {
+        "startByte": 291,
+        "endByte": 293
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_import_form",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": null,
+          "localName": "UI",
+          "form": "namespace",
+          "typeOnly": false,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 110,
+            "endByte": 112
+          },
+          "importSpan": {
+            "startByte": 98,
+            "endByte": 132
+          }
+        }
+      }
+    },
+    {
+      "name": "UI.Button",
+      "span": {
+        "startByte": 297,
+        "endByte": 306
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_jsx_name",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": null,
+          "localName": "UI",
+          "form": "namespace",
+          "typeOnly": false,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 110,
+            "endByte": 112
+          },
+          "importSpan": {
+            "startByte": 98,
+            "endByte": 132
+          }
+        }
+      }
+    },
+    {
+      "name": "UI.Nested.Button",
+      "span": {
+        "startByte": 310,
+        "endByte": 326
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_jsx_name",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": null,
+          "localName": "UI",
+          "form": "namespace",
+          "typeOnly": false,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 110,
+            "endByte": 112
+          },
+          "importSpan": {
+            "startByte": 98,
+            "endByte": 132
+          }
+        }
+      }
+    },
+    {
+      "name": "Button.Part",
+      "span": {
+        "startByte": 330,
+        "endByte": 341
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_jsx_name",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": "Button",
+          "localName": "Button",
+          "form": "named",
+          "typeOnly": false,
+          "phase": null,
+          "declarationSpan": {
+            "startByte": 69,
+            "endByte": 75
+          },
+          "importSpan": {
+            "startByte": 35,
+            "endByte": 97
+          }
+        }
+      }
+    },
+    {
+      "name": "Legacy",
+      "span": {
+        "startByte": 345,
+        "endByte": 351
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_import_form",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "local",
+        "declarationSpan": {
+          "startByte": 140,
+          "endByte": 146
+        },
+        "declarationKind": "import_equals"
+      }
+    },
+    {
+      "name": "Source",
+      "span": {
+        "startByte": 355,
+        "endByte": 361
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_import_form",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": "default",
+          "localName": "Source",
+          "form": "default",
+          "typeOnly": false,
+          "phase": "source",
+          "declarationSpan": {
+            "startByte": 187,
+            "endByte": 193
+          },
+          "importSpan": {
+            "startByte": 173,
+            "endByte": 213
+          }
+        }
+      }
+    },
+    {
+      "name": "Deferred",
+      "span": {
+        "startByte": 365,
+        "endByte": 373
+      },
+      "status": "skipped",
+      "reasonCode": "unsupported_import_form",
+      "bindingConfirmed": false,
+      "evidence": {
+        "kind": "import",
+        "declaration": {
+          "moduleSpecifier": "@example/ui",
+          "importedName": null,
+          "localName": "Deferred",
+          "form": "namespace",
+          "typeOnly": false,
+          "phase": "defer",
+          "declarationSpan": {
+            "startByte": 232,
+            "endByte": 240
+          },
+          "importSpan": {
+            "startByte": 214,
+            "endByte": 260
+          }
+        }
+      }
+    }
+  ]
+}

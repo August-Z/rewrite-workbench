@@ -72,3 +72,93 @@ fn missing_file_is_an_io_failure() {
     assert!(output.stdout.is_empty());
     assert!(String::from_utf8_lossy(&output.stderr).contains("Cannot read UTF-8 input"));
 }
+
+#[test]
+fn bindings_command_uses_selector_and_preserves_unicode_input() {
+    let input = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("../../fixtures/bindings/unicode-crlf-bom/input.tsx");
+    let before = fs::read(&input).unwrap();
+    for (module, confirmed) in [("@example/ui", true), ("./barrel", false)] {
+        let output = cli()
+            .arg("bindings")
+            .arg(&input)
+            .args([module, "Button"])
+            .output()
+            .unwrap();
+        assert!(
+            output.status.success(),
+            "{}",
+            String::from_utf8_lossy(&output.stderr)
+        );
+        assert!(output.stderr.is_empty());
+        let actual: Value = serde_json::from_slice(&output.stdout).unwrap();
+        let report = rewrite_core::classify_tsx(
+            std::str::from_utf8(&before).unwrap(),
+            &rewrite_core::ImportSelector {
+                module_specifier: module.to_owned(),
+                imported_name: "Button".to_owned(),
+            },
+        );
+        assert_eq!(actual, serde_json::to_value(report).unwrap());
+        assert_eq!(actual["bindings"][0]["bindingConfirmed"], confirmed);
+        assert_eq!(actual["bindings"][1]["bindingConfirmed"], false);
+        assert_ne!(actual["bindings"][0]["status"], "ready");
+        assert_eq!(fs::read(&input).unwrap(), before);
+    }
+}
+
+#[test]
+fn bindings_invalid_input_has_no_partial_results() {
+    let output = cli()
+        .arg("bindings")
+        .arg(fixture("parse-error"))
+        .args(["@example/ui", "Button"])
+        .output()
+        .unwrap();
+    assert_eq!(output.status.code(), Some(1));
+    let report: Value = serde_json::from_slice(&output.stdout).unwrap();
+    assert_eq!(report["status"], "invalid");
+    assert_eq!(report["reasonCode"], "parse_error");
+    assert!(!report["message"].as_str().unwrap().is_empty());
+    assert!(report["bindings"].as_array().unwrap().is_empty());
+}
+
+#[test]
+fn bindings_requires_exact_arguments_and_tsx_mode() {
+    for args in [
+        vec!["bindings"],
+        vec!["bindings", "a.tsx"],
+        vec!["bindings", "a.tsx", "@example/ui"],
+        vec!["bindings", "a.tsx", "@example/ui", "Button", "extra"],
+        vec!["bindings", "a.ts", "@example/ui", "Button"],
+    ] {
+        let output = cli().args(args).output().unwrap();
+        assert_eq!(output.status.code(), Some(2));
+        assert!(output.stdout.is_empty());
+        assert!(!output.stderr.is_empty());
+    }
+}
+
+#[cfg(unix)]
+#[test]
+fn bindings_rejects_non_utf8_selectors() {
+    use std::{ffi::OsString, os::unix::ffi::OsStringExt};
+    for invalid_module in [true, false] {
+        let bad = OsString::from_vec(vec![0xff]);
+        let (module, name) = if invalid_module {
+            (bad, OsString::from("Button"))
+        } else {
+            (OsString::from("@example/ui"), bad)
+        };
+        let output = cli()
+            .arg("bindings")
+            .arg(fixture("direct"))
+            .arg(module)
+            .arg(name)
+            .output()
+            .unwrap();
+        assert_eq!(output.status.code(), Some(2));
+        assert!(output.stdout.is_empty());
+        assert!(String::from_utf8_lossy(&output.stderr).contains("must be UTF-8"));
+    }
+}

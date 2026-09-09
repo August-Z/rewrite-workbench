@@ -24,6 +24,28 @@ The fixture runner compares the entire expected structure. Error fixtures additi
 | `invalid-regex` | Regex syntax errors are reported with regex parsing explicitly enabled. |
 | `semantic-error` | Duplicate lexical declarations are rejected by Semantic syntax checks. |
 
-Successful analysis has `status: "skipped"` and `reasonCode: "binding_spike_only"`. `named_import` is an observation, not a `ready` rewrite candidate. `other_binding` deliberately combines local declarations and imports outside the spike's index. Complete candidate reasons and unsupported-import classification belong to RWB-002.
+Successful analysis has `status: "skipped"` and `reasonCode: "binding_spike_only"`. `named_import` is an observation, not a `ready` rewrite candidate. `other_binding` deliberately combines local declarations and imports outside the spike's index. RWB-002 adds a separate classifier below; these spike observations remain unchanged and are not promoted into candidates.
 
 From the repository root, run `cargo test --workspace --locked`. Detailed environment and execution evidence is in [RWB-001 validation](../docs/evidence/rwb-001.md).
+
+## RWB-002 binding classification
+
+Each `bindings/<case>/` contains original synthetic `input.tsx` bytes and an independently authored `expected.json` with a selector and the complete expected per-tag classification/evidence (except prose messages). Exact tag, local declaration and import declaration spans are checked. The test runner requires readable messages but keeps their wording outside the golden contract. `.gitattributes` also protects these inputs from line-ending conversion.
+
+| Case | Expected evidence / regression risk |
+| --- | --- |
+| `direct-sources` | Direct/aliased and quoted named imports; imported name vs local name; distinct module, barrel and subpath literals; parsed escape equivalence; local export does not erase an import binding. |
+| `shadowing` | Destructured parameter, block binding before declaration, nested capture, var hoisting, catch parameter, named function expression, loop binding, class and scope exit. |
+| `unsupported-imports` | Default including named default syntax, namespace, TS import-equals, source/defer phases and nested JSX members never confirm a component. |
+| `indirection` | Wrapper, assignment, destructuring, require and later assignment never borrow the original import's identity. |
+| `type-only` | Declaration/specifier/default/namespace type-only imports and local value declarations shadowing type imports; ordinary value alias still confirms. |
+| `unresolved-and-reexports` | Named/star/namespace re-exports create no local value binding; DOM/custom tags ignore same-name imports; member/namespaced/this names remain unsupported. |
+| `unicode-crlf-bom` | Chinese/emoji/combining character, non-ASCII alias, BOM, CRLF and no final newline; exact label and declaration byte positions. |
+| `merged-bindings` | Import and local/type declarations can share one Oxc SymbolId without syntax errors; reject merged symbols in either declaration order, preserving all declaration spans. |
+| `no-jsx` | Re-export declarations, comments and JSX-looking strings produce zero usage results. |
+
+Additional core tests vary the selector to reject alias-as-export, path normalization, case differences and selected default exports. Invalid-input tests place a valid matching JSX before malformed/recoverable JSX, invalid regex or duplicate lexical declarations and require whole-file rejection.
+
+`bindingConfirmed` refers only to the selected declaration in this input. All confirmed cases are `skipped / operation_not_evaluated`; all negative fixtures assert false plus their specific exclusion/skip reason. No fixture claims operation correctness or generates edits. CLI tests independently check selector forwarding, invalid input, argument/encoding rejection, and unchanged Unicode/BOM/CRLF input bytes.
+
+Run `cargo test --workspace --locked`. See [RWB-002 validation](../docs/evidence/rwb-002.md) for results and remaining boundaries.
