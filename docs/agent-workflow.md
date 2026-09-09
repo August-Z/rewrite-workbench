@@ -13,9 +13,9 @@ Codex 会读取项目范围的 `AGENTS.md`；具体发现机制见 [官方说明
 
 ## 开始实施的提示词
 
-> 请读取仓库 AGENTS.md、docs/status.md、ROADMAP.md 和 docs/backlog.md。先核对 branch、HEAD 与 dirty state，然后从 RWB-001 开始实施。只完成该任务的最小可编译 workspace、依赖固定、合成 fixtures 和解析/绑定 spike，不扩展到完整 UI。运行相应检查，更新真实命令与状态，并列明未验证项。提交或推送按我在本任务中的授权执行。
+> 请读取仓库 AGENTS.md、docs/status.md、ROADMAP.md 和 docs/backlog.md。先核对 branch、HEAD 与 dirty state，然后从 status 中的下一任务开始实施。只完成该任务在 backlog 中限定的交付与验收，不扩展到整个里程碑。运行相应检查，更新真实命令与状态，并列明未验证项。提交或推送按我在本任务中的授权执行。
 
-后续可把 RWB-001 替换为已满足依赖的任务 ID。不要一次性向多个任务发送“完成整个 roadmap”，以免重复工作和状态冲突。
+也可明确指定已满足依赖的任务 ID（当前为 RWB-002）。不要一次性向多个任务发送“完成整个 roadmap”，以免重复工作和状态冲突。
 
 ## 并行协作
 
@@ -45,13 +45,13 @@ GitHub issue/milestone 记录排期、讨论和执行状态；版本化文档记
 
 ## 当前命令边界
 
-当前仓库仅完成项目资料启动；尚无 `Cargo.toml`、前端 package scripts 或安装包。可用 Git 命令检查仓库状态，但不要声称 `cargo test`、`pnpm dev` 或安装命令已经存在。RWB-001 与前端启动任务完成后更新这一节及 README。
+RWB-001 已建立 Cargo workspace 和只读 `inspect` CLI，实际 setup/test 命令见 [README](../README.md#run-the-development-spike)，环境和结果见 [验证记录](evidence/rwb-001.md)。尚无前端 package scripts、改写/patch 命令或安装包；后续任务建立并验证后再更新文档。
 
 ## 接入验收
 
 - 本地路径对应期望仓库，remote origin 指向 GitHub 项目。
 - Codex 的项目列表显示该 checkout。
-- 新任务读取本仓库 `AGENTS.md` 和状态文件，能够指出当前阶段与 RWB-001。
+- 新任务读取本仓库 `AGENTS.md` 和状态文件，能够指出当前阶段与下一任务 ID。
 - 若使用 worktree，记录该任务自己的 branch/HEAD；不把“项目已添加”当作远程云环境也已配置。
 
 本地项目工作无需另外开通云执行。云环境、自动审查、定时任务等在实际需要时单独配置。

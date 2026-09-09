@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "status": "skipped",
+  "reasonCode": "binding_spike_only",
+  "bindings": [
+    {
+      "name": "B",
+      "span": {
+        "startByte": 58,
+        "endByte": 59
+      },
+      "origin": {
+        "kind": "named_import",
+        "declarationSpan": {
+          "startByte": 19,
+          "endByte": 20
+        },
+        "moduleSpecifier": "@example/ui",
+        "importedName": "Button",
+        "typeOnly": false
+      }
+    },
+    {
+      "name": "B",
+      "span": {
+        "startByte": 118,
+        "endByte": 119
+      },
+      "origin": {
+        "kind": "other_binding",
+        "declarationSpan": {
+          "startByte": 94,
+          "endByte": 95
+        }
+      }
+    },
+    {
+      "name": "B",
+      "span": {
+        "startByte": 154,
+        "endByte": 155
+      },
+      "origin": {
+        "kind": "named_import",
+        "declarationSpan": {
+          "startByte": 19,
+          "endByte": 20
+        },
+        "moduleSpecifier": "@example/ui",
+        "importedName": "Button",
+        "typeOnly": false
+      }
+    }
+  ]
+}

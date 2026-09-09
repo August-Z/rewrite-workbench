@@ -4,7 +4,7 @@
 
 [中文项目计划](docs/project-plan.md) · [Roadmap](ROADMAP.md) · [Architecture](docs/architecture.md) · [Current status](docs/status.md) · [Agent entry point](AGENTS.md)
 
-> **Status: project planning and repository bootstrap.** There is no installable CLI, working rewrite engine, or released application yet. The capabilities below are planned; follow the roadmap and issues for implementation evidence.
+> **Status: M1 correctness foundation, RWB-001 implemented and locally validated.** A Rust core and development CLI can parse TSX and inspect file-local bindings. Rewrite operations, patches, UI, and installable releases remain planned. See the [validation record](docs/evidence/rwb-001.md) for the tested scope.
 
 Rewrite Workbench is a planned local tool for frontend developers who need to update repeated code without learning an AST query language. Select an example, specify the intended change and scope, inspect matches and exclusions, and export a reviewable patch.
 
@@ -42,7 +42,32 @@ That hypothesis has not yet been validated. See the [competitive baseline](docs/
 | Actual progress and next task | [Status](docs/status.md) |
 | Contribution process | [Contributing](CONTRIBUTING.md) |
 
-Do not use installation commands copied from future roadmap items: packages have not been published. Initial implementation task **RWB-001** will add and verify the actual development commands.
+## Run the development spike
+
+Prerequisites: [rustup](https://rust-lang.org/tools/install/) on PATH and the platform's native linker/build tools. The current validation environment is macOS arm64 with Xcode command-line tools. Other platforms and distribution packages have not been validated.
+
+From the repository root:
+
+```sh
+rustup toolchain install 1.98.1 --profile minimal --component rustfmt --component clippy --no-self-update
+cargo fetch --locked
+cargo test --workspace --locked
+cargo fmt --all -- --check
+cargo clippy --workspace --all-targets --locked -- -D warnings
+cargo run --locked -p rewrite-cli -- inspect fixtures/spike/alias-shadowing/input.tsx
+```
+
+[rust-toolchain.toml](rust-toolchain.toml) selects Rust 1.98.1 for this repository without changing your default toolchain. [Cargo.toml](Cargo.toml) pins Oxc 0.149.0; [Cargo.lock](Cargo.lock) locks the dependency graph. There are no frontend dependencies yet. If rustup is installed but absent from PATH, add its `bin` directory to this shell's PATH before running these commands; no shell-profile edits are required.
+
+The `inspect` command reads exactly one `.tsx` file and prints JSON from the shared core. For the alias fixture, the first and last `B` refer to the named import; the middle `B` refers to a function parameter. Valid inputs report `skipped / binding_spike_only` because no rewrite operation has been evaluated. Observations include literal import sources and UTF-8 byte spans; they do not resolve physical modules or expose persistent Oxc IDs.
+
+To inspect an intentional syntax error:
+
+```sh
+cargo run --locked -p rewrite-cli -- inspect fixtures/spike/parse-error/input.tsx
+```
+
+This prints `invalid / parse_error` with diagnostics and exits **1**. Completed inspections exit **0**; argument, file-read, encoding, or output errors exit **2**. No target files are written. See [fixture conventions](fixtures/README.md) and [execution evidence](docs/evidence/rwb-001.md). Packages have not been published; these are source-development commands.
 
 ## License
 
