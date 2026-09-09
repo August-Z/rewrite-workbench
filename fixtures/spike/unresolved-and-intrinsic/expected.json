@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "status": "skipped",
+  "reasonCode": "binding_spike_only",
+  "bindings": [
+    {
+      "name": "div",
+      "span": {
+        "startByte": 14,
+        "endByte": 17
+      },
+      "origin": {
+        "kind": "intrinsic"
+      }
+    },
+    {
+      "name": "Missing",
+      "span": {
+        "startByte": 19,
+        "endByte": 26
+      },
+      "origin": {
+        "kind": "unresolved"
+      }
+    },
+    {
+      "name": "UI.Button",
+      "span": {
+        "startByte": 30,
+        "endByte": 39
+      },
+      "origin": {
+        "kind": "unsupported_jsx_name"
+      }
+    }
+  ]
+}

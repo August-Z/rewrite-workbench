@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "status": "skipped",
+  "reasonCode": "binding_spike_only",
+  "bindings": [
+    {
+      "name": "A",
+      "span": {
+        "startByte": 140,
+        "endByte": 141
+      },
+      "origin": {
+        "kind": "named_import",
+        "declarationSpan": {
+          "startByte": 19,
+          "endByte": 20
+        },
+        "moduleSpecifier": "@example/ui",
+        "importedName": "Button",
+        "typeOnly": false
+      }
+    },
+    {
+      "name": "B",
+      "span": {
+        "startByte": 157,
+        "endByte": 158
+      },
+      "origin": {
+        "kind": "named_import",
+        "declarationSpan": {
+          "startByte": 62,
+          "endByte": 63
+        },
+        "moduleSpecifier": "@example/other",
+        "importedName": "Button",
+        "typeOnly": false
+      }
+    },
+    {
+      "name": "C",
+      "span": {
+        "startByte": 174,
+        "endByte": 175
+      },
+      "origin": {
+        "kind": "named_import",
+        "declarationSpan": {
+          "startByte": 108,
+          "endByte": 109
+        },
+        "moduleSpecifier": "./barrel",
+        "importedName": "Button",
+        "typeOnly": false
+      }
+    }
+  ]
+}

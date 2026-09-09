@@ -1,6 +1,8 @@
 # rewrite-workbench 架构计划
 
-本文描述拟实施的架构与协议，不代表已有可运行实现。所有模块名、JSON 示例和阶段能力均为计划；依赖的实际版本将在技术原型中核验、固定并记录。
+本文描述目标架构与协议；除下述 RWB-001 实现边界外，模块、recipe JSON 示例和阶段能力仍为计划。实际验证见 [RWB-001 记录](evidence/rwb-001.md)。
+
+RWB-001 已建立 `rewrite-core` 与 `rewrite-cli` 两个 crate，固定 Rust 1.98.1 和 Oxc 0.149.0。core 的 `inspect_tsx(&str)` 使用显式 TSX module 语法、开启正则解析和 Semantic syntax checks，仅返回导入/引用绑定观察及 UTF-8 byte spans；CLI 负责单文件读取和 JSON 输出。报告使用独立的 `schemaVersion: 1`，不是下文 Recipe v1 或 EditPlan 协议。正常输入为 `skipped / binding_spike_only`，错误输入为 `invalid / parse_error` 或 `invalid / semantic_syntax_error`；绑定成立不代表操作前置条件已经成立。完整候选分类、文件 hash、版本化请求、edit 与 patch 尚未实现，当前观察不能保存为可应用计划。
 
 首版目标是：以 TSX 文件为用户入口和验收范围，依据直接导入的组件身份，预览两种确定规则的 JSX 改写，并导出可以审查的 patch。共享解析基础可考虑 JS、JSX、TS，但不因能够解析就宣称相关用户流程已验证。Alpha 不直接写入源文件；v0.1 再增加带内容 hash 检查的直接应用。正确性验收见 [validation.md](./validation.md)。
 
@@ -223,4 +225,4 @@ Oxc Resolver 已支持路径别名、tsconfig extends 和 project references，�
 
 原生版和 WASM 版计划共享 recipe schema、匹配逻辑、原因代码及 golden fixture。WASM 可采用不同并发策略，但不能单独复制匹配算法或使用另一套未经对齐的解析版本。公开样例仅处理用户主动输入或项目准备的样例文本，不承诺浏览器直接操作任意本地工程。
 
-技术原型将记录 Rust toolchain、所有 Oxc crate、前端依赖及打包工具的实际兼容版本，提交相应 lockfile，并固定受影响的 CI 环境。本文不预设未验证的可安装版本或运行命令。依赖升级只重跑与解析、绑定、坐标、渲染或打包变化相关的检查；规则和文档措辞修改按最小充分验证处理。
+RWB-001 的工具链与 Rust 依赖已在根 manifest、rust-toolchain.toml 和 Cargo.lock 中固定，并通过本地原生编译与 fixture 验证。前端依赖、WASM、CI 和打包工具尚未建立，在对应任务实施时固定并验证。依赖升级只重跑与解析、绑定、坐标、渲染或打包变化相关的检查；规则和文档措辞修改按最小充分验证处理。

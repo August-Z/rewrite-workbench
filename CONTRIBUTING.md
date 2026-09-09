@@ -1,6 +1,6 @@
 # Contributing
 
-The repository is currently in its planning/bootstrap phase. There is no released application or established runtime build command yet.
+The repository is in M1. A read-only Rust parsing/binding spike is available; rewrite operations and a released application are still planned. Use the verified development commands in the [README](README.md#run-the-development-spike).
 
 ## Start with a bounded task
 

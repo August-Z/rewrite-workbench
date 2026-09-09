@@ -2,6 +2,8 @@
 
 本文是计划中的验证与阶段验收要求，不是已通过的测试报告。项目当前的实现、安装和性能状态必须以实际执行记录为准。核心范围与拟定 JSON recipe 协议见 [architecture.md](./architecture.md)。
 
+RWB-001 的已执行记录见 [解析/绑定 spike 验证](evidence/rwb-001.md)，当前合成输入与 expected 分类约定见 [fixtures](../fixtures/README.md)。其覆盖范围不代表下表中的全部操作和阶段验收已经通过。
+
 首版计划只验证两种操作：指定直接导入组件的 JSX 属性改名，以及指定属性的固定字符串值映射。Alpha 仅导出 patch；v0.1 才加入带内容 hash 检查的直接应用。后续 WASM 公开样例复用同一核心和 fixture。
 
 ## 1. 证据层次与记录方式

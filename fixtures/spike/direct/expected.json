@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "status": "skipped",
+  "reasonCode": "binding_spike_only",
+  "bindings": [
+    {
+      "name": "Button",
+      "span": {
+        "startByte": 59,
+        "endByte": 65
+      },
+      "origin": {
+        "kind": "named_import",
+        "declarationSpan": {
+          "startByte": 9,
+          "endByte": 15
+        },
+        "moduleSpecifier": "@example/ui",
+        "importedName": "Button",
+        "typeOnly": false
+      }
+    }
+  ]
+}

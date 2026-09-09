@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "status": "skipped",
+  "reasonCode": "binding_spike_only",
+  "bindings": [
+    {
+      "name": "Café",
+      "span": {
+        "startByte": 81,
+        "endByte": 86
+      },
+      "origin": {
+        "kind": "named_import",
+        "declarationSpan": {
+          "startByte": 38,
+          "endByte": 43
+        },
+        "moduleSpecifier": "@example/ui",
+        "importedName": "Button",
+        "typeOnly": false
+      }
+    }
+  ]
+}
