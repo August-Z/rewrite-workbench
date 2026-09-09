@@ -1,0 +1,12 @@
+.DS_Store
+/target/
+node_modules/
+dist/
+coverage/
+.env
+.env.*
+!.env.example
+*.log
+/work/
+/artifacts/local/
+/.codex/local/
