@@ -1,6 +1,6 @@
 # Implementation backlog
 
-每项任务使用稳定 ID；GitHub issue 是执行入口，文档是范围与验收依据。初始状态均为待开始，实际进展见 [status](status.md)。
+每项任务使用稳定 ID；[GitHub issue 与里程碑](github-tracking.md)是执行入口，文档是范围与验收依据。初始状态均为待开始，实际进展见 [status](status.md)。
 
 | ID | 任务 | 阶段 | 依赖 | 主要交付 |
 | --- | --- | --- | --- | --- |

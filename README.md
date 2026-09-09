@@ -35,6 +35,7 @@ That hypothesis has not yet been validated. See the [competitive baseline](docs/
 | Product scope, users, delivery and decisions | [Project plan](docs/project-plan.md) |
 | Milestones, dependencies and exit criteria | [Roadmap](ROADMAP.md) |
 | Small implementation tasks | [Backlog](docs/backlog.md) |
+| GitHub issues and milestones | [Tracking links](docs/github-tracking.md) |
 | Modules, data contracts and correctness boundaries | [Architecture](docs/architecture.md) |
 | Fixtures and validation strategy | [Validation](docs/validation.md) |
 | Continue in Codex or another coding agent | [Agent workflow](docs/agent-workflow.md) |
